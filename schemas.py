@@ -26,6 +26,7 @@ class UserUpdate(BaseModel):
 class User(UserBase):
     id: int
     senha: str  # Armazena o hash da senha no banco
+    access_token: str  # Novo campo para o token de acesso
 
     class Config:
         from_attributes = True

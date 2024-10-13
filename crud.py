@@ -1,5 +1,5 @@
 import bcrypt
-from database import *
+from database import *  # Presumindo que você tenha uma implementação para a variável user_db
 
 # Retorna o usuário pelo ID
 def get_user(user_id: int):
@@ -31,7 +31,7 @@ def create_user(user: dict):
     }
     user_db[user_id_counter] = new_user
     user_id_counter += 1
-    return new_user
+    return new_user  # Certifique-se de que a função retorne o novo usuário criado
 
 ################################################################ UPDATE ################################################################
 
