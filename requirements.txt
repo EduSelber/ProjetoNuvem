@@ -3,3 +3,6 @@ uvicorn[standard]
 pydantic
 bcrypt
 pyjwt
+python-jose
+beautifulsoup4 
+requests

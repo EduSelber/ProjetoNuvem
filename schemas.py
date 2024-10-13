@@ -11,22 +11,12 @@ class UserCreate(UserBase):
 
     # Hash da senha no momento da criação
     def hash_senha(self):
-        self.senha = bcrypt.hashpw(self.senha.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
+        self.senha = bcrypt.hashpw(self.senha.encode('utf-8'), bcrypt.gensalt())
 
-class UserUpdate(BaseModel):
-    email: Optional[str] = None
-    name: Optional[str] = None
-    senha: Optional[str] = None
-
-    # Hash da senha no momento da atualização, se uma nova senha for fornecida
-    def hash_senha(self):
-        if self.senha:
-            self.senha = bcrypt.hashpw(self.senha.encode('utf-8'), bcrypt.gensalt()).decode('utf-8')
-
-class User(UserBase):
-    id: int
-    senha: str  # Armazena o hash da senha no banco
-    access_token: str  # Novo campo para o token de acesso
+class User(BaseModel):
+   
+    email: str
+    senha: str 
 
     class Config:
         from_attributes = True
