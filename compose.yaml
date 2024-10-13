@@ -1,0 +1,12 @@
+services:
+  app:
+    build: 
+      context: app # O diretório onde o Dockerfile está localizado
+      dockerfile: Dockerfile  # Nome do Dockerfile
+    ports:
+      - "8000:8000"  # Mapeia a porta 8000 do container para a porta 8000 do host
+    volumes:
+      - ./app:/app  # Monta o diretório 'app' no diretório de trabalho do container
+    environment:
+      - PYTHONUNBUFFERED=1  # Define a variável de ambiente para desabilitar o buffer do Python
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]  # Modificado para 'main.py'

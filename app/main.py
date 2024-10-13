@@ -3,8 +3,8 @@ from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt  # Importar para trabalhar com JWT
 from datetime import timedelta, datetime
-import crud
-import schemas
+import crud as crud
+import schemas as schemas
 import bcrypt  # Import necessário para verificar a senha
 from bs4 import BeautifulSoup
 from urllib.parse import urlparse, parse_qs
