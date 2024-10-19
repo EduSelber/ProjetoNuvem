@@ -1,12 +1,28 @@
 services:
   app:
     build: 
-      context: app # O diretório onde o Dockerfile está localizado
-      dockerfile: Dockerfile  # Nome do Dockerfile
+      context: app
+      dockerfile: Dockerfile
     ports:
-      - "8000:8000"  # Mapeia a porta 8000 do container para a porta 8000 do host
+      - "8000:8000"
     volumes:
-      - ./app:/app  # Monta o diretório 'app' no diretório de trabalho do container
+      - ./app:/app
     environment:
-      - PYTHONUNBUFFERED=1  # Define a variável de ambiente para desabilitar o buffer do Python
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]  # Modificado para 'main.py'
+      - PYTHONUNBUFFERED=1
+    depends_on:
+      - db  # Adiciona dependência para o serviço de banco de dados
+    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+  db:
+    image: postgres:13
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+    volumes:
+      - db-data:/var/lib/postgresql/data
+
+volumes:
+  db-data:

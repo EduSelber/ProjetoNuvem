@@ -1,8 +1,10 @@
 fastapi
+psycopg2-binary  # Driver para PostgreSQL
+sqlalchemy  # ORM para manipulação do banco de dados
+bcrypt  # Para hashing de senhas
+pydantic  # Para validação de dados
+python-jose  # Para gerar e verificar tokens JWT
+requests  # Para fazer requisições HTTP, se necessário (para scraping, por exemplo)
+beautifulsoup4  # Para parsing de HTML
 uvicorn[standard]
-pydantic
-bcrypt
-pyjwt
-python-jose
-beautifulsoup4 
-requests
+passlib

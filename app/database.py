@@ -1,20 +1,18 @@
-########## Usuários ##########
-# Dicionário que simula um banco de dados de usuários, incluindo detalhes como email, nome e senha (hash)
-user_db = {
-    1: {
-        "id": 1,
-        "email": "cloud@insper.edu.br",
-        "name": "Cloud",
-        "senha": "$2b$12$examplehashedpassword",  # Exemplo de senha com hash bcrypt
-    },
-    2: {
-        "id": 2,
-        "email": "tifa@insper.edu.br",
-        "name": "Tifa",
-        "senha": "$2b$12$examplehashedpassword",  # Exemplo de senha com hash bcrypt
-    },
-}
+from sqlalchemy import create_engine
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker
 
-########## Contador de IDs ##########
-# Contador para simular auto incremento de IDs de usuários
-user_id_counter = 3  # Começando do 3 para novos usuários
+# Configurações de conexão com o PostgreSQL
+SQLALCHEMY_DATABASE_URL = "postgresql://myuser:mypassword@db/mydatabase"
+
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+Base = declarative_base()
+
+# Função para obter uma sessão de banco de dados
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

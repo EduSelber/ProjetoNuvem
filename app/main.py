@@ -1,15 +1,19 @@
+from sqlalchemy.orm import Session  # Importação adicionada
 import requests
 from fastapi import FastAPI, HTTPException, Depends
 from fastapi.security import OAuth2PasswordBearer
-from jose import JWTError, jwt  # Importar para trabalhar com JWT
+from jose import JWTError, jwt
 from datetime import timedelta, datetime
-import crud as crud
-import schemas as schemas
-import bcrypt  # Import necessário para verificar a senha
+import crud
+import schemas
+from passlib.context import CryptContext
 from bs4 import BeautifulSoup
-from urllib.parse import urlparse, parse_qs
+from database import engine, get_db
+from models import Base
 
 app = FastAPI()
+
+Base.metadata.create_all(bind=engine)
 
 # Configurações do JWT
 SECRET_KEY = "seu_segredo_aqui"
@@ -18,6 +22,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES = 30
 
 # Definir o esquema OAuth2 para o token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/")
+pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 def create_access_token(data: dict, expires_delta: timedelta = None):
     to_encode = data.copy()
@@ -38,13 +43,15 @@ def verify_access_token(token: str):
         raise HTTPException(status_code=401, detail="Invalid token")
 
 @app.post("/registrar/", response_model=dict, tags=["Usuários"])
-def create_user(user: schemas.UserCreate):
-    db_user = crud.get_user_by_email(user.email)
+def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, user.email)  # Passa o db como argumento
     if db_user:
         raise HTTPException(status_code=409, detail="User already registered")
 
-    user.hash_senha()  # Hash da senha antes de salvar
-    new_user = crud.create_user(user.model_dump())
+    hashed_password = pwd_context.hash(user.senha)  # Hash da senha antes de salvar
+    user.senha = hashed_password  # Atualiza a senha com o hash
+
+    new_user = crud.create_user(db, user)  # Passa o db e o objeto user
 
     # Gerar JWT token após o registro
     access_token = create_access_token(data={"sub": user.email})
@@ -52,13 +59,13 @@ def create_user(user: schemas.UserCreate):
     return {"access_token": access_token}  # Retorna apenas o token
 
 @app.post("/login/", response_model=dict, tags=["Usuários"])
-def login_user(user: schemas.UserCreate):
-    db_user = crud.get_user_by_email(user.email)
+def login_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+    db_user = crud.get_user_by_email(db, user.email)  # Passa o db como argumento
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
 
     # Verificar se a senha fornecida corresponde ao hash armazenado
-    if not bcrypt.checkpw(user.senha.encode('utf-8'), db_user["senha"]):
+    if not pwd_context.verify(user.senha, db_user.hashed_password):
         raise HTTPException(status_code=401, detail="Invalid password")
 
     # Gerar o token JWT após o login bem-sucedido
@@ -67,12 +74,12 @@ def login_user(user: schemas.UserCreate):
     return {"access_token": access_token}
 
 @app.get("/me", response_model=dict, tags=["Usuários"])
-def read_current_user(token: str = Depends(oauth2_scheme)):
+def read_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     # Verificar a validade do token
     email = verify_access_token(token)
 
     # Buscar usuário no banco de dados com base no email recuperado do token
-    db_user = crud.get_user_by_email(email)
+    db_user = crud.get_user_by_email(db, email)  # Passa o db como argumento
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
 
@@ -125,4 +132,4 @@ def read_current_user(token: str = Depends(oauth2_scheme)):
         extrair_informacoes(linhas)
 
     # Retorna o email do usuário e as informações dos times
-    return {"email": email, "times": times} 
+    return {"email": email, "times": times}
