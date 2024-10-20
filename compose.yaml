@@ -10,7 +10,7 @@ services:
     environment:
       - PYTHONUNBUFFERED=1
     depends_on:
-      - db  # Adiciona dependência para o serviço de banco de dados
+      - db
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
   db:
@@ -23,6 +23,16 @@ services:
       - "5432:5432"
     volumes:
       - db-data:/var/lib/postgresql/data
+
+  mkdocs:
+    build: 
+      context: app
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8000"
+    volumes:
+      - ./docs:/docs
+    command: ["mkdocs", "serve", "--dev-addr=0.0.0.0:8000"]
 
 volumes:
   db-data:

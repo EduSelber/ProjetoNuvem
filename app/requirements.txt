@@ -8,3 +8,5 @@ requests  # Para fazer requisições HTTP, se necessário (para scraping, por ex
 beautifulsoup4  # Para parsing de HTML
 uvicorn[standard]
 passlib
+mkdocs
+mkdocs-material  # Um tema estilizado popular para MkDocs

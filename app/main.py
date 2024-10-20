@@ -1,6 +1,7 @@
 from sqlalchemy.orm import Session  # Importação adicionada
 import requests
-from fastapi import FastAPI, HTTPException, Depends
+from fastapi import FastAPI,HTTPException, Depends
+from fastapi.responses import HTMLResponse, FileResponse
 from fastapi.security import OAuth2PasswordBearer
 from jose import JWTError, jwt
 from datetime import timedelta, datetime
@@ -10,6 +11,7 @@ from passlib.context import CryptContext
 from bs4 import BeautifulSoup
 from database import engine, get_db
 from models import Base
+import os
 
 app = FastAPI()
 
