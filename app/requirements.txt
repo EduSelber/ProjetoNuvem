@@ -10,3 +10,4 @@ uvicorn[standard]
 passlib
 mkdocs
 mkdocs-material  # Um tema estilizado popular para MkDocs
+python-dotenv  # Para carregar variáveis de ambiente de um arquivo .env

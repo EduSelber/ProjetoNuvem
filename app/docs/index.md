@@ -25,6 +25,8 @@ Esta API fornece um sistema completo de gerenciamento de usuários com autentica
 - Extrai informações como posição, nome do time, pontuação, jogos, vitórias, empates, derrotas, gols pró, gols contra, saldo de gols e aproveitamento.
 - As informações extraídas são retornadas junto com o e-mail do usuário na rota `/me`.
 
+![Animação do sistema](veron-palmeiras.gif)
+
 ## Autenticação
 A autenticação é feita por meio de tokens JWT. Os tokens devem ser incluídos no cabeçalho das solicitações para acessar rotas protegidas.
 

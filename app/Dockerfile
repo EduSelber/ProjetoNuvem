@@ -10,7 +10,9 @@ COPY requirements.txt .
 # Instalando as dependências
 RUN pip install --no-cache-dir -r requirements.txt
 
+
 # Copiando o código da aplicação para o container
+
 COPY . .
 
 # Expondo a porta da API
