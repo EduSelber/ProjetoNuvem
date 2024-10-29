@@ -1,38 +1,25 @@
 services:
   app:
-    build: 
-      context: app
-      dockerfile: Dockerfile
+#    build: 
+#      context: app
+#      dockerfile: Dockerfile
+    image: selber/app
     ports:
       - "8000:8000"
-    volumes:
-      - ./app:/app
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-projeto} 
+      POSTGRES_USER: ${POSTGRES_USER:-projeto}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-projeto}
+      POSTGRES_HOST: db
     depends_on:
       - db
     command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
 
   db:
-    build:
-      context: db
-      dockerfile: Dockerfile
+    image: postgres:17
     environment:
       POSTGRES_DB: ${POSTGRES_DB:-projeto} 
       POSTGRES_USER: ${POSTGRES_USER:-projeto}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-projeto}
     ports:
       - "5432:5432"
-    volumes:
-      - db-data:/var/lib/postgresql/data
-
-  mkdocs:
-    build: 
-      context: app
-      dockerfile: Dockerfile
-    ports:
-      - "8080:8000"
-    volumes:
-      - ./docs:/docs
-    command: ["mkdocs", "serve", "--dev-addr=0.0.0.0:8000"]
-
-volumes:
-  db-data:
