@@ -11,16 +11,18 @@ from passlib.context import CryptContext
 from bs4 import BeautifulSoup
 from database import engine, get_db
 from models import Base
+from dotenv import load_dotenv
 import os
 
+load_dotenv()
 app = FastAPI()
 
 Base.metadata.create_all(bind=engine)
-
+SECRET_KEY = os.getenv("SECRET_KEY")
+ALGORITHM = os.getenv("ALGORITHM")
+ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
 # Configurações do JWT
-SECRET_KEY = "seu_segredo_aqui"
-ALGORITHM = "HS256"
-ACCESS_TOKEN_EXPIRE_MINUTES = 30
+
 
 # Definir o esquema OAuth2 para o token
 oauth2_scheme = OAuth2PasswordBearer(tokenUrl="login/")
