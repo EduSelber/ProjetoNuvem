@@ -7,6 +7,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-projeto}
     ports:
       - "5432:5432"
+      
   app:
     image: selber/app2:1
     ports:
