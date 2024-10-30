@@ -1,9 +1,14 @@
 services:
+  db:
+    image: postgres:17
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-projeto} 
+      POSTGRES_USER: ${POSTGRES_USER:-projeto}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-projeto}
+    ports:
+      - "5432:5432"
   app:
-#    build: 
-#      context: app
-#      dockerfile: Dockerfile
-    image: selber/app:tag2
+    image: selber/app2:1
     ports:
       - "8000:8000"
     environment:
@@ -16,13 +21,6 @@ services:
       ACCESS_TOKEN_EXPIRE_MINUTES: 30
     depends_on:
       - db
-    command: ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+    restart: on-failure 
 
-  db:
-    image: postgres:17
-    environment:
-      POSTGRES_DB: ${POSTGRES_DB:-projeto} 
-      POSTGRES_USER: ${POSTGRES_USER:-projeto}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-projeto}
-    ports:
-      - "5432:5432"
+  
