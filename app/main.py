@@ -20,7 +20,7 @@ app = FastAPI()
 Base.metadata.create_all(bind=engine)
 SECRET_KEY = os.getenv("SECRET_KEY")
 ALGORITHM = os.getenv("ALGORITHM")
-ACCESS_TOKEN_EXPIRE_MINUTES = os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES")
+ACCESS_TOKEN_EXPIRE_MINUTES = int(os.getenv("ACCESS_TOKEN_EXPIRE_MINUTES"))
 # Configurações do JWT
 
 
@@ -63,7 +63,7 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     return {"access_token": access_token}  # Retorna apenas o token
 
 @app.post("/login/", response_model=dict, tags=["Usuários"])
-def login_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
+def login_user(user: schemas.User, db: Session = Depends(get_db)):
     db_user = crud.get_user_by_email(db, user.email)  # Passa o db como argumento
     if not db_user:
         raise HTTPException(status_code=404, detail="User not found")
@@ -77,7 +77,7 @@ def login_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
 
     return {"access_token": access_token}
 
-@app.get("/me", response_model=dict, tags=["Usuários"])
+@app.get("/consultar", response_model=dict, tags=["Usuários"])
 def read_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_db)):
     # Verificar a validade do token
     email = verify_access_token(token)
