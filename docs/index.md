@@ -113,7 +113,7 @@ print(response.text)
 ## Link do vídeo:
 Você pode assistir ao vídeo [aqui](https://youtu.be/h3qdxoTj_fM).
 
-## referência explícita a localização do arquivo compose.yaml:
+## Referência explícita a localização do arquivo compose.yaml:
 O arquivo compose.yaml  se encontra na raiz do repositório.
 
 ## Autenticação
