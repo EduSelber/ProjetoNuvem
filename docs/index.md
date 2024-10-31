@@ -46,6 +46,7 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.status_code)
 print(response.text)
 ```
+![imagem de resposta bem sucedida do registrar](images/nome-da-imagem.png)
 ## Autenticação
 A autenticação é feita por meio de tokens JWT. Os tokens devem ser incluídos no cabeçalho das solicitações para acessar rotas protegidas.
 ### Exemplo de Uso
