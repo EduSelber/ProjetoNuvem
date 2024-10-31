@@ -1,6 +1,13 @@
 # Bem-vindo à Documentação da API
+## Nome: Eduardo Selber Castanho
 ## Visão Geral
 Esta API fornece um sistema completo de gerenciamento de usuários com autenticação baseada em JWT, além de recursos adicionais, como scraping de dados de futebol ao vivo. Abaixo está um resumo das principais funcionalidades e como utilizá-las.
+## Como executar:
+Para executar a API, é necessário copiar o arquivo compose.yaml para o diretório do projeto e, em seguida, no terminal desse diretório, executar o comando:
+```
+docker compose up --build
+```
+. Após alguns instantes, será possível acessar `http://localhost:8000/docs`, indicando que a API está pronta para uso.
 ## Principais Funcionalidades
 ### Registro de Usuário (`/registrar/`)
 - Permite que novos usuários se registrem fornecendo seu e-mail, nome e senha.
@@ -19,6 +26,26 @@ Esta API fornece um sistema completo de gerenciamento de usuários com autentica
 - Extrai informações como posição, nome do time, pontuação, jogos, vitórias, empates, derrotas, gols pró, gols contra, saldo de gols e aproveitamento.
 - Retorna apenas os times das zonas 1, 2, 3 e 4, excluindo times entre as zonas 3 e 4.
 - As informações extraídas são enviadas junto com o e-mail do usuário na rota /consultar.
+### Codigos para testar a aplicacao
+## Registro de Usuário (`/registrar/`)
+```py
+import requests
+
+url = "http://localhost:8000/registrar/"
+payload = {
+  "email": "jonas2@insper.edu.br",
+  "name": "Joao",
+  "senha": "123456",
+}
+headers = {
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+
+print(response.status_code)
+print(response.text)
+```
 ## Autenticação
 A autenticação é feita por meio de tokens JWT. Os tokens devem ser incluídos no cabeçalho das solicitações para acessar rotas protegidas.
 ### Exemplo de Uso
