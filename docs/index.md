@@ -113,6 +113,9 @@ print(response.text)
 ## Link do vídeo:
 https://youtu.be/h3qdxoTj_fM
 
+## referência explícita a localização do arquivo compose.yaml:
+O arquivo compose.yaml  se encontra na raiz do repositório.
+
 ## Autenticação
 A autenticação é feita por meio de tokens JWT. Os tokens devem ser incluídos no cabeçalho das solicitações para acessar rotas protegidas.
 ### Exemplo de Uso
