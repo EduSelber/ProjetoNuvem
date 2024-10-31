@@ -46,7 +46,8 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.status_code)
 print(response.text)
 ```
-![imagem de resposta bem sucedida do registrar](imgs/registro.png)
+<img src="imgs/registro.png" alt="imagem de resposta bem sucedida do registrar" style="width: 600px;"/>
+
 ## Login de Usuário (`/login/`)
 ```py
 import requests
@@ -74,7 +75,8 @@ if response.status_code == 200:
 else:
     print("Erro ao fazer login:", response.text)
 ```
-![imagem de resposta bem sucedida do registrar](imgs/registro.png)
+<img src="imgs/registro.png" alt="imagem de resposta bem sucedida do registrar" style="width: 600px;"/>
+
 ## Consulta resultado da tabela do Brasileirão (`/consultar`)
 ```py
 import requests
@@ -91,7 +93,8 @@ print(response.status_code)
 print(response.text)
 
 ```
-![imagem de resposta bem sucedida do registrar](imgs/consulta.png)
+<img src="imgs/registro.png" alt="imagem de resposta bem sucedida do registrar" style="width: 600px;"/>
+
 ## Autenticação
 A autenticação é feita por meio de tokens JWT. Os tokens devem ser incluídos no cabeçalho das solicitações para acessar rotas protegidas.
 ### Exemplo de Uso
