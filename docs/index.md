@@ -26,7 +26,7 @@ docker compose up --build
 - Extrai informações como posição, nome do time, pontuação, jogos, vitórias, empates, derrotas, gols pró, gols contra, saldo de gols e aproveitamento.
 - Retorna apenas os times das zonas 1, 2, 3 e 4, excluindo times entre as zonas 3 e 4.
 - As informações extraídas são enviadas junto com o e-mail do usuário na rota /consultar.
-### Codigos para testar a aplicacao
+### Códigos para Testar a Aplicação:
 ## Registro de Usuário (`/registrar/`)
 ```py
 import requests
@@ -46,7 +46,52 @@ response = requests.post(url, json=payload, headers=headers)
 print(response.status_code)
 print(response.text)
 ```
-![imagem de resposta bem sucedida do registrar](images/nome-da-imagem.png)
+![imagem de resposta bem sucedida do registrar](imgs/registro.png)
+## Login de Usuário (`/login/`)
+```py
+import requests
+
+url = "http://localhost:8000/login/"
+payload = {
+  "email": "jonas2@insper.edu.br",
+  "name": "Joao",
+  "senha": "123456",
+}
+headers = {
+    "Content-Type": "application/json"
+}
+
+response = requests.post(url, json=payload, headers=headers)
+
+print(response.status_code)
+print(response.text)
+
+# Verifique se a resposta foi bem-sucedida e extraia o access token
+if response.status_code == 200:
+    data = response.json()  # Converte a resposta em formato JSON
+    access_token = data.get("access_token")  # Obtém o token de acesso
+    print("Access Token:", access_token)
+else:
+    print("Erro ao fazer login:", response.text)
+```
+![imagem de resposta bem sucedida do registrar](imgs/registro.png)
+## Consulta resultado da tabela do Brasileirão (`/consultar`)
+```py
+import requests
+
+url = "http://localhost:8000/consultar"
+
+headers = {
+    "Authorization": f"Bearer {access_token}"
+}
+
+response = requests.get(url, headers=headers)
+
+print(response.status_code)
+print(response.text)
+
+```
+![imagem de resposta bem sucedida do registrar](imgs/consulta.png)
 ## Autenticação
 A autenticação é feita por meio de tokens JWT. Os tokens devem ser incluídos no cabeçalho das solicitações para acessar rotas protegidas.
 ### Exemplo de Uso
