@@ -7,7 +7,7 @@ Para executar a API, é necessário copiar o arquivo compose.yaml para o diretó
 ```
 docker compose up --build
 ```
-. Após alguns instantes, será possível acessar `http://localhost:8000/docs`, indicando que a API está pronta para uso.
+Após alguns instantes, será possível acessar `http://localhost:8000/docs`, indicando que a API está pronta para uso.
 ## Principais Funcionalidades
 ### Registro de Usuário (`/registrar/`)
 - Permite que novos usuários se registrem fornecendo seu e-mail, nome e senha.
