@@ -12,7 +12,7 @@ Esta API oferece um sistema completo de gerenciamento de usuários com autentica
   Autenticação segura com tokens que garantem a proteção das informações dos usuários.
 
 - **Scraping de Dados de Futebol ao Vivo:**  
-  Acesse informações atualizadas sobre partidas de futebol em tempo real.
+  Acesse informações atualizadas sobre a tabela do brasileirão em tempo real.
 
 ## Como Utilizar
 
