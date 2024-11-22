@@ -29,6 +29,7 @@ Antes de iniciar o deploy, verifique os seguintes pré-requisitos:
 ### Credenciais e Variáveis de Ambiente:
 - Certifique-se de que as variáveis de ambiente no arquivo `web-deployment.yaml` estão configuradas corretamente (exemplo: POSTGRES_HOST, SECRET_KEY, etc.).
 
+
 ## Arquivos de Configuração
 
 ### 1. db-deployment.yaml
