@@ -74,40 +74,48 @@ Aplique o arquivo `db-deployment.yaml`:
 
 
 kubectl apply -f AWS/db-deployment.yaml
-# 1. Verificar se o Deployment e o Service estão ativos:
+### 2. Verificar se o Deployment e o Service estão ativos:
+```
 kubectl get deployments
+```
+```
 kubectl get services
+```
 
-
-# 2. Criar a Aplicação (FastAPI)
-# Edite o arquivo web-deployment.yaml para preencher as variáveis de ambiente, como:
-# POSTGRES_HOST: Nome do Service do PostgreSQL (neste caso, postgres).
-# SECRET_KEY, ALGORITHM, etc.
+#### 2. Criar a Aplicação (FastAPI)
+ Edite o arquivo web-deployment.yaml para preencher as variáveis de ambiente, como:
+ POSTGRES_HOST: Nome do Service do PostgreSQL (neste caso, postgres).
+ SECRET_KEY, ALGORITHM, etc.
 kubectl apply -f AWS/web-deployment.yaml
 
-# Verificar se o Deployment e o Service estão ativos:
+### Verificar se o Deployment e o Service estão ativos:
+```
 kubectl get deployments
+```
+```
 kubectl get services
-
-# Anotar o endereço externo gerado pelo Service do tipo LoadBalancer:
+```
+ Anotar o endereço externo gerado pelo Service do tipo LoadBalancer:
 kubectl get service fastapi-service
 
-# 3. Acessar a Aplicação
-# Usar o endereço externo do LoadBalancer para acessar a aplicação:
-# http://<EXTERNAL-IP>
-# A API estará disponível na porta padrão 80.
+### 3. Acessar a Aplicação
+ Usar o endereço externo do LoadBalancer para acessar a aplicação:
+http://<EXTERNAL-IP>
+ A API estará disponível na porta padrão 80.
 
-# Diagnóstico e Solução de Problemas
-# Verificar Logs dos Pods:
+### Diagnóstico e Solução de Problemas
+#### Verificar Logs dos Pods:
 kubectl logs <pod-name>
 
-# Verificar Estado dos Pods:
+### Verificar Estado dos Pods:
+```
 kubectl get pods
-
-# Testar Conexão Interna com o Banco de Dados:
-# Usar o comando kubectl exec para acessar o Pod do FastAPI e testar a conexão com o banco:
+```
+### Testar Conexão Interna com o Banco de Dados:
+ Usar o comando kubectl exec para acessar o Pod do FastAPI e testar a conexão com o banco:
+ ```
 kubectl exec -it <fastapi-pod-name> -- /bin/sh
 psql -h postgres -U projeto -d projeto
-
-# Resolver Problemas de Endereço Externo:
-# Certifique-se de que os Security Groups associados ao LoadBalancer permitem tráfego na porta 80.
+```
+### Resolver Problemas de Endereço Externo:
+ Certifique-se de que os Security Groups associados ao LoadBalancer permitem tráfego na porta 80.
