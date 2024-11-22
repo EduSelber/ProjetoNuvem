@@ -44,5 +44,4 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - AWS: 
-      - Subpágina: segunda-aba/subpagina.md
+  - AWS: segunda-aba/subpagina.md

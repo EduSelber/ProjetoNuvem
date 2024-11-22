@@ -113,9 +113,10 @@ kubectl get pods
 ```
 ### Testar Conexão Interna com o Banco de Dados:
  Usar o comando kubectl exec para acessar o Pod do FastAPI e testar a conexão com o banco:
- ```
-kubectl exec -it <fastapi-pod-name> -- /bin/sh
-psql -h postgres -U projeto -d projeto
+
 ```
+kubectl exec -it <fastapi-pod-name> -- /bin/sh psql -h postgres -U projeto -d projeto
+```
+
 ### Resolver Problemas de Endereço Externo:
  Certifique-se de que os Security Groups associados ao LoadBalancer permitem tráfego na porta 80.
