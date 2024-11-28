@@ -122,6 +122,7 @@ kubectl exec -it <fastapi-pod-name> -- /bin/sh psql -h postgres -U projeto -d pr
  Certifique-se de que os Security Groups associados ao LoadBalancer permitem tráfego na porta 80.
  
 ### Códigos para Testar a Aplicação:
+Nota: Altere o e-mail no payload, pois ele já foi registrado, e a aplicação não permite e-mails duplicados.
 ## Registro de Usuário (`/registrar/`)
 ```py
 import requests
