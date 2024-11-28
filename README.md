@@ -16,7 +16,11 @@ Esta API oferece um sistema completo de gerenciamento de usuários com autentica
 
 ## Como Utilizar
 
-Para mais informações sobre a API e suas funcionalidades, acesse a [documentação oficial](https://eduselber.github.io/ProjetoNuvem/).
+Para mais informações sobre a API e suas funcionalidades e da AWS, acesse a [documentação oficial](https://eduselber.github.io/ProjetoNuvem/).
 
-##Video do AWS:
+## Video do AWS:
 Para mais informações sobre a AWS e suas funcionalidades, acesse o [video da AWS](https://youtu.be/0TLTqTMiq_M).
+
+## Link da AWS:
+
+http://a7cf1e7ce32f64a4e838214b574175f7-1913318390.us-east-1.elb.amazonaws.com/docs
